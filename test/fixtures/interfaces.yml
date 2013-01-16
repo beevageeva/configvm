@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ifname: 
+  mac: 
+  ipaddress: 
+  shorewallname: 
+  shorewalloptions: MyString
+
+two:
+  ifname: 
+  mac: 
+  ipaddress: 
+  shorewallname: 
+  shorewalloptions: MyString

@@ -1,0 +1,31 @@
+<h1>Listing interfaces</h1>
+
+<table>
+  <tr>
+    <th>Ifname</th>
+    <th>Mac</th>
+    <th>Ipaddress</th>
+    <th>Shorewallname</th>
+    <th>Shorewalloptions</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @interfaces.each do |interface| %>
+  <tr>
+    <td><%= interface.ifname %></td>
+    <td><%= interface.mac %></td>
+    <td><%= interface.ipaddress %></td>
+    <td><%= interface.shorewallname %></td>
+    <td><%= interface.shorewalloptions %></td>
+    <td><%= link_to 'Show', interface %></td>
+    <td><%= link_to 'Edit', edit_interface_path(interface) %></td>
+    <td><%= link_to 'Destroy', interface, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Interface', new_interface_path %>

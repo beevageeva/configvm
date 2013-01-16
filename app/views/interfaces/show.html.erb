@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<%= render "view" %>
+
+<% if @interface.vm %>
+
+<h2>	<%= "VM:"   + @interface.vm.hypervisor.name + ":" +  @interface.vm.name  %></h2>
+
+Copiar reglas shorewall a otra vm
+<%=  form_tag(:action => 'copysr' ) do %>
+	<%= hidden_field_tag 'id' , @interface.id %>
+	<%= select_tag 'destid' , options_for_select( getIfnamesVMExcept(@interface.host_id, @interface.vm.name) ) %>
+	<%= submit_tag 'Sumbit'  %>
+
+<% end %>
+<% end %>
+
+
+<%= render "shorewallrules/list" %>
+
+
+
+<%= link_to 'Edit', edit_interface_path(@interface) %> |
+<%= link_to 'Back', edit_host_path(@interface.host) %>

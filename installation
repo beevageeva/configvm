@@ -1,0 +1,1 @@
+copy config/database.yml.example to config/database.yml and Gemfile.example to Gemfile and make necessary modifications

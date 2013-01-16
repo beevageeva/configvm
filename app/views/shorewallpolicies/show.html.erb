@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sourceinterface:</b>
+  <%= @shorewallpolicy.sourceinterface_id %>
+</p>
+
+<p>
+  <b>Destinterface:</b>
+  <%= @shorewallpolicy.destinterface_id %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @shorewallpolicy.action %>
+</p>
+
+<p>
+  <b>Loglevel:</b>
+  <%= @shorewallpolicy.loglevel %>
+</p>
+
+<p>
+  <b>References:</b>
+  <%= @shorewallpolicy.references %>
+</p>
+
+
+<%= link_to 'Edit', edit_shorewallpolicy_path(@shorewallpolicy) %> |
+<%= link_to 'Back', shorewallpolicies_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @vm.name %>
+</p>
+
+<p>
+  <b>Uuid:</b>
+  <%= @vm.uuid %>
+</p>
+
+<p>
+  <b>Mem:</b>
+  <%= @vm.mem %>
+</p>
+
+<p>
+  <b>Cpus:</b>
+  <%= @vm.cpus %>
+</p>
+
+<p>
+  <b>Vncdisplay:</b>
+  <%= @vm.vncdisplay %>
+</p>
+
+<p>
+  <b>Diskname:</b>
+  <%= @vm.diskname %>
+</p>
+
+<h2> Network interface: </h2>
+<%= render "interfaces/view" %>
+
+
+
+<%= link_to 'Edit', edit_vm_path(@vm) %> |
+<%= link_to 'Back', edit_hypervisor_path(@vm.hypervisor) %>

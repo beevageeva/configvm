@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hypervisor.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @hypervisor.type %>
+</p>
+
+
+<%= link_to 'Edit', edit_hypervisor_path(@hypervisor) %> |
+<%= link_to 'Back', hypervisors_path %>

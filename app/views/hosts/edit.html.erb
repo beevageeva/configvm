@@ -1,0 +1,134 @@
+<h1>Editing host</h1>
+
+<%= render 'form' %>
+
+
+
+<br/>
+<h2>Interfaces:</h2>
+<table>
+  <tr>
+    <th>Ifname</th>
+    <th>Shorewallname</th>
+    <th>Ipaddress</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @host.interfaces.each do |interface| %>
+  <tr>
+    <td><%= interface.ifname %></td>
+    <td><%= interface.shorewallname %></td>
+    <td><%= interface.ipaddress %></td>
+		<td> &nbsp;
+			<% if interface.vm %>
+						<b style='color:red'> VM:<%= interface.vm.hypervisor.name  %>:<%= interface.vm.name  %> </b> 
+			<% elsif interface.hypervisor_as_bridge %>
+						<b style='color:red'> BRIDGE:<%= interface.hypervisor_as_bridge.name %> </b> 
+			<% elsif  interface.hypervisors_as_net %>
+						<% interface.hypervisors_as_net.each do |h| %>
+							<b style='color:red'> NET:<%= h.name %> </b>
+						<% end %>
+			<% end %> 
+		</td>
+    <td><%= link_to 'Show', interface %></td>
+    <td><%= link_to 'Edit', edit_interface_path(interface) %></td>
+    <td><%= link_to 'Destroy', interface, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Add interface' , :controller => 'interfaces' , :action => 'newInterface' , :host_id => @host.id %>
+<br/>
+<br/>
+
+
+<h2>Hypervisors:</h2>
+<% if @host.hypervisors.length > 0 %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Virt Type</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @host.hypervisors.each do |h| %>
+  <tr>
+    <td>
+				<%= h.name %>
+		</td>
+    <td>
+				<%= h.virttype %>
+		</td>
+
+    <td><%= link_to 'Edit', edit_hypervisor_path(h) %></td>
+    <td><%= link_to 'Destroy', h, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+<%= link_to 'Add Hypervisor' , :controller => 'hypervisors' , :action => 'newHypervisor' , :host_id => @host.id %>
+
+<br/>
+<br/>
+<h2>Shorewall policies(only interfaces not VM):</h2>
+<% if @shorewallpolicies.length > 0 %>
+<table>
+  <tr>
+    <th>SOURCE</th>
+    <th>DEST</th>
+    <th>ACTION</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @shorewallpolicies.each do |sp| %>
+  <tr>
+    <td>
+			<% if sp.sourceinterface_id !=-1 %>
+				<%= sp.sourceinterface.shorewallname %>
+			<% else %>
+				$FW
+			<% end %>
+
+		</td>
+    <td>
+			<% if sp.destinterface_id !=-1 %>
+				<%= sp.destinterface.shorewallname %>
+			<% else %>
+				$FW
+			<% end %>
+		
+		</td>
+    <td><%= sp.action %></td>
+    <td><%= sp.loglevel %></td>
+
+    <td><%= link_to 'Edit', edit_shorewallpolicy_path(sp) %></td>
+    <td><%= link_to 'Destroy', sp, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+<%= link_to 'Add Shorewall Policy for This host(only for interfaces that do not belong to vms)' , :controller => 'shorewallpolicies' , :action => 'newShorewallpolicy' , :host_id => @host.id %>
+
+<br/>
+<br/>
+
+<%= render 'shorewallrules/list' %>
+
+
+<%= link_to 'Add Shorewall Rule for This host' , :controller => 'shorewallrules' , :action => 'newShorewallrule' , :host_id => @host.id %>
+<br/>
+<br/>
+
+<h2> Shorewall files download (enabled hosts) :</h2>
+<ul>
+	<li> <%= link_to "rules", :action => 'getShorewallRulesFile' , :host_name => @host.name %></li>
+	<li> <%= link_to "policy", :action => 'getShorewallPolicyFile' , :host_name => @host.name %></li>
+	<li> <%= link_to "interfaces", :action => 'getShorewallInterfacesFile' , :host_name => @host.name %></li>
+	<li> <%= link_to "zones", :action => 'getShorewallZonesFile' , :host_name => @host.name %></li>
+
+</ul>
+
+<%= link_to 'Back', hosts_path %>

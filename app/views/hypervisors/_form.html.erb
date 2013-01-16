@@ -1,0 +1,62 @@
+<%= form_for(@hypervisor) do |f| %>
+  <% if @hypervisor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hypervisor.errors.count, "error") %> prohibited this hypervisor from being saved:</h2>
+
+      <ul>
+      <% @hypervisor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :host_id %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :virttype , "Virt Type" %><br />
+		<%= select('hypervisor' , "virttype"  ,  Hypervisor::VIRT_TYPES.collect {|p| [ p, p ] }  )  %>
+  </div>
+  <div class="field">
+    <%= f.label :netinterface_id , 'Net interface' %><br />
+		<%= select('hypervisor' , "netinterface_id"  , getIfnamesNoVMNoFw(@hypervisor.host_id) )  %>
+  </div>
+
+  <%= f.label :has_bridge_interface , "Use bridge interface" %><br />
+	<%= check_box_tag 'has_bridge_interface', 1, @hypervisor.bridgeinterface  %>
+	<div id="bridge_interface">
+		<h2>Bridge interface </h2>
+		<%= render 'interfaces/formfields' %>
+	</div>
+
+	<script>
+		  $("#has_bridge_interface").click(function () {
+    if ($("#bridge_interface:first").is(":hidden")) {
+      $("#bridge_interface").show("slow");
+    } else {
+      $("#bridge_interface").slideUp();
+    }
+  });
+
+$(document).ready(function() {
+		<% if @hypervisor.bridgeinterface %>
+  // Handler for .ready() called.
+      $("#bridge_interface").show("slow");
+
+		<% else %>
+
+     $("#bridge_interface").hide();
+	<% end %>
+
+
+});
+
+
+	</script>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

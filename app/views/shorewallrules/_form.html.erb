@@ -1,0 +1,124 @@
+<%= form_for(@shorewallrule) do |f| %>
+  <% if @shorewallrule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shorewallrule.errors.count, "error") %> prohibited this shorewallrule from being saved:</h2>
+
+      <ul>
+      <% @shorewallrule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :host_id , params[:host_id] %>
+
+	
+  <div class="field">
+    <%= f.label :action %><br />
+		<%= select('shorewallrule' , "action"  ,  Shorewallrule::SHOREWALL_ACTIONS.collect {|p| [ p, p ] }  )  %>
+  </div>
+
+
+
+  <div class="field">
+    <%= f.label :sourceinterface_id , 'Source ' %><br />
+		<%= select('shorewallrule' , "sourceinterface_id"  , getIfnames(params[:host_id]) )  %>
+  </div>
+  
+	<div class="field" id="sourceip">
+    <%= f.label :sourceipaddresslist, 'Source ip adresses coma separated' %><br />
+    <%= f.text_field :sourceipaddresslist %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :destinterface_id , 'Dest ' %><br />
+		<%= select('shorewallrule' , "destinterface_id"  , getIfnames(params[:host_id]) )  %>
+  </div>
+
+	<div class="field" id="destip">
+    <%= f.label :destipaddresslist, 'Dest ip adresses coma separated' %><br />
+    <%= f.text_field :destipaddresslist %>
+  </div>
+  
+	<div class="field" id="destport">
+    <%= f.label :destport, 'Destination port for DNAT' %><br />
+    <%= f.text_field :destport %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :protocoltype %><br />
+		<%= select('shorewallrule' , "protocoltype"  ,  Shorewallrule::SHOREWALL_PROTOCOLS.collect {|p| [ p, p ] }  )  %>
+  </div>
+
+
+	<div class="field">
+    <%= f.label :fwport , 'FwPort (can be a list of coma separated ports for udp and tcp) (type in case of icmp)'%><br />
+    <%= f.text_field :fwport %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+	<script>
+		
+	//div of ip addresses list for source and dest may be visible or not depending of the type of interface(not showing if is $FW or the interface of a VM)
+	function div_interface_visible(divid,value){
+						if (value == -1){
+							$("#" + divid).hide();
+							return;
+						}
+						<% getVMInterfaces(params[:host_id]).each do |iid| %>
+				
+						if (value == <%= iid %>){
+							$("#" + divid).hide();
+							return;
+						}
+
+						<% end %>					
+						$("#" + divid).show();
+
+	}
+
+	//div with id destport may be visible or not depending of action selected 
+	function div_action_visible(value){
+						if (value == "DNAT"){
+							$("#destport").show();
+						}
+						else{
+							$("#destport").hide();
+						}
+	}
+
+
+
+        $('#shorewallrule_sourceinterface_id').change(function () {
+							div_interface_visible("sourceip", this.value)
+        });
+
+
+        $('#shorewallrule_destinterface_id').change(function () {
+							div_interface_visible("destip", this.value)
+        });
+
+
+
+        $('#shorewallrule_action').change(function () {
+						div_action_visible(this.value);
+        });
+	
+
+	$(document).ready(function() {
+		div_interface_visible("sourceip", $('#shorewallrule_sourceinterface_id').val());
+		div_interface_visible("destip", $('#shorewallrule_destinterface_id').val());
+		div_action_visible($('#shorewallrule_action').val());
+	});
+
+	</script>
+
+
+<% end %>

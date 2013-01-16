@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: 
+  uuid: 
+  mem: 
+  cpus: 
+  vncdisplay: 
+  diskname: 
+  type: MyString
+
+two:
+  name: 
+  uuid: 
+  mem: 
+  cpus: 
+  vncdisplay: 
+  diskname: 
+  type: MyString

@@ -1,0 +1,2 @@
+HTTP_USER = "123"
+HTTP_PASS = '123'

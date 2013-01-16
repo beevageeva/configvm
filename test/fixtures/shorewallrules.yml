@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ifname1: 
+  ipaddress1: 
+  ifname2: 
+  ipaddress2: 
+  port2: 
+  protocoltype: 
+  port1: MyString
+
+two:
+  ifname1: 
+  ipaddress1: 
+  ifname2: 
+  ipaddress2: 
+  port2: 
+  protocoltype: 
+  port1: MyString

@@ -1,0 +1,35 @@
+<h1>Listing shorewallrules</h1>
+
+<table>
+  <tr>
+    <th>Ifname1</th>
+    <th>Ipaddress1</th>
+    <th>Ifname2</th>
+    <th>Ipaddress2</th>
+    <th>Port2</th>
+    <th>Protocoltype</th>
+    <th>Port1</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shorewallrules.each do |shorewallrule| %>
+  <tr>
+    <td><%= shorewallrule.ifname1 %></td>
+    <td><%= shorewallrule.ipaddress1 %></td>
+    <td><%= shorewallrule.ifname2 %></td>
+    <td><%= shorewallrule.ipaddress2 %></td>
+    <td><%= shorewallrule.port2 %></td>
+    <td><%= shorewallrule.protocoltype %></td>
+    <td><%= shorewallrule.port1 %></td>
+    <td><%= link_to 'Show', shorewallrule %></td>
+    <td><%= link_to 'Edit', edit_shorewallrule_path(shorewallrule) %></td>
+    <td><%= link_to 'Destroy', shorewallrule, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shorewallrule', new_shorewallrule_path %>

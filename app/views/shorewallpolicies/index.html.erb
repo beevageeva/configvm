@@ -1,0 +1,31 @@
+<h1>Listing shorewallpolicies</h1>
+
+<table>
+  <tr>
+    <th>Sourceinterface</th>
+    <th>Destinterface</th>
+    <th>Action</th>
+    <th>Loglevel</th>
+    <th>References</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shorewallpolicies.each do |shorewallpolicy| %>
+  <tr>
+    <td><%= shorewallpolicy.sourceinterface_id %></td>
+    <td><%= shorewallpolicy.destinterface_id %></td>
+    <td><%= shorewallpolicy.action %></td>
+    <td><%= shorewallpolicy.loglevel %></td>
+    <td><%= shorewallpolicy.references %></td>
+    <td><%= link_to 'Show', shorewallpolicy %></td>
+    <td><%= link_to 'Edit', edit_shorewallpolicy_path(shorewallpolicy) %></td>
+    <td><%= link_to 'Destroy', shorewallpolicy, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shorewallpolicy', new_shorewallpolicy_path %>

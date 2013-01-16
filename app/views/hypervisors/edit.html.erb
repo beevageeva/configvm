@@ -1,0 +1,37 @@
+<h1>Editing hypervisor</h1>
+
+<%= render 'form' %>
+<br/>
+
+<br/>
+
+<h2>VMs:</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Enabled</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hypervisor.vms.each do |vm| %>
+  <tr>
+    <td><%= vm.name %></td>
+    <td><img src="/images/<%= vm.enabled ? 'green' : 'red' %>.jpg"> </td>
+    <td><%= link_to (vm.enabled? ? 'Disable' : 'Enable'), :controller => 'vms' ,:action => :changeStatus, :vm_id => vm.id  %></td>
+    <td><%= link_to 'Show', vm %></td>
+    <td><%= link_to 'Edit', edit_vm_path(vm) %></td>
+    <td><%= link_to 'Destroy', vm, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Add vm' , :controller => 'vms' , :action => 'newVm' , :hypervisor_id => @hypervisor.id %>
+<br/>
+<br/>
+
+
+<%= link_to 'Show', @hypervisor %> |
+<%= link_to 'Back', edit_host_path(@hypervisor.host) %>

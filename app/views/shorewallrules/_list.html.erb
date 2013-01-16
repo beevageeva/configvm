@@ -1,0 +1,35 @@
+<h2>Shorewall rules:</h2>
+<% if @shorewallrules.length > 0 %>
+<table border="1">
+  <tr>
+    <th>ACTION</th>
+    <th>SOURCE</th>
+    <th>DEST</th>
+    <th>PROTO</th>
+    <th>FWPORT</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% 
+s = false 
+interfaceid = 0
+color="#FFFFFF"
+%>
+<% @shorewallrules.each do |sr| %>
+<% 
+if interfaceid == 0  || (!s && interfaceid != sr.destinterface_id )
+	s = true
+	interfaceid = sr.sourceinterface_id
+	color = random_color
+elsif s  && interfaceid !=sr.sourceinterface_id
+	s = false
+end
+%>
+<tr style='color:<%= color %>'>
+    <td ><%= raw sr.to_s.gsub("\t", "</td><td>") %></td>
+    <td><%= link_to 'Edit', edit_shorewallrule_path(sr) %></td>
+    <td><%= link_to 'Destroy', sr, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>

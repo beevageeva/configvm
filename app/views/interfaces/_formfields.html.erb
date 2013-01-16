@@ -1,0 +1,33 @@
+  <% if @interface.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interface.errors.count, "error") %> prohibited this interface from being saved:</h2>
+
+      <ul>
+      <% @interface.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field :interface ,:host_id %>
+  <div class="field">
+    <%= label_tag :ifname %><br />
+    <%= text_field :interface ,:ifname %>
+  </div>
+  <div class="field">
+    <%= label_tag :mac %><br />
+    <%= text_field :interface ,:mac %>
+  </div>
+  <div class="field">
+    <%= label_tag :ipaddress %><br />
+    <%= text_field :interface ,:ipaddress %>
+  </div>
+  <div class="field">
+    <%= label_tag :shorewallname %><br />
+    <%= text_field :interface , :shorewallname %>
+  </div>
+  <div class="field">
+    <%= label_tag :shorewalloptions %><br />
+    <%= text_field :interface , :shorewalloptions %>
+  </div>

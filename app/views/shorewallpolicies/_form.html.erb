@@ -1,0 +1,40 @@
+<%= form_for(@shorewallpolicy) do |f| %>
+  <% if @shorewallpolicy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shorewallpolicy.errors.count, "error") %> prohibited this shorewallpolicy from being saved:</h2>
+
+      <ul>
+      <% @shorewallpolicy.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :host_id , params[:host_id] %>
+
+  <div class="field">
+    <%= f.label :sourceinterface_id , 'Source ' %><br />
+		<%= select('shorewallpolicy' , "sourceinterface_id"  , getIfnamesNoVM(params[:host_id]) )  %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :destinterface_id , 'Dest ' %><br />
+		<%= select('shorewallpolicy' , "destinterface_id"  , getIfnamesNoVM(params[:host_id]) )  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :action %><br />
+		<%= select('shorewallpolicy' , "action"  ,  Shorewallpolicy::SHOREWALL_ACTIONS.collect {|p| [ p, p ] }  )  %>
+  </div>
+
+	<div class="field">
+    <%= f.label :loglevel %><br />
+    <%= f.text_field :loglevel %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<p style="color: green"><%= flash[:notice] %></p>
+
+<% form_tag(:action => 'verifyLogin') do %>
+
+<p>
+  <%=  t :username %>:
+  <%= text_field_tag :login, params[:login] %>
+</p>
+
+<p>
+  <%=  t :password %>:
+  <%= password_field_tag :password, params[:password] %>
+</p>
+
+  <%= submit_tag 'Login'  %>
+<% end %>
+
+

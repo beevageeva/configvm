@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ifname1:</b>
+  <%= @shorewallrule.ifname1 %>
+</p>
+
+<p>
+  <b>Ipaddress1:</b>
+  <%= @shorewallrule.ipaddress1 %>
+</p>
+
+<p>
+  <b>Ifname2:</b>
+  <%= @shorewallrule.ifname2 %>
+</p>
+
+<p>
+  <b>Ipaddress2:</b>
+  <%= @shorewallrule.ipaddress2 %>
+</p>
+
+<p>
+  <b>Port2:</b>
+  <%= @shorewallrule.port2 %>
+</p>
+
+<p>
+  <b>Protocoltype:</b>
+  <%= @shorewallrule.protocoltype %>
+</p>
+
+<p>
+  <b>Port1:</b>
+  <%= @shorewallrule.port1 %>
+</p>
+
+
+<%= link_to 'Edit', edit_shorewallrule_path(@shorewallrule) %> |
+<%= link_to 'Back', shorewallrules_path %>
